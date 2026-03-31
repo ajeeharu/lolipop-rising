@@ -1,33 +1,55 @@
+
+import { useState } from "react"; // 追加
+
 function App() {
-  return (
-    <div className="min-h-screen flex flex-col items-center justify-center bg-slate-900 p-4">
-      {/* 1. グラデーションとテキスト装飾のテスト */}
-      <h1 className="text-5xl md:text-7xl font-black text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 via-blue-500 to-purple-600 mb-8 animate-pulse">
-        Tailwind v4 Active!
-      </h1>
+  const defaultMovieList = [
+    {
+      id: 1,
+      name: "君の名は",
+      image:
+        "https://media.themoviedb.org/t/p/w300_and_h450_bestv2/yLglTwyFOUZt5fNKm0PWL1PK5gm.jpg",
+      overview:
+        "1ヵ月後に1000年ぶりの彗星が訪れる日本。東京で暮らす平凡な男子高校生・瀧と、山深い村で都会の生活に憧れながら憂鬱な日々を送る女子高校生・三葉。つながりのない2人は、互いが入れ替わる不思議な夢を見る。",
+    },
+    {
+      id: 2,
+      name: "ハウルの動く城",
+      image:
+        "https://media.themoviedb.org/t/p/w300_and_h450_bestv2/v0K2e1t6ocUNnkZ9BeiFdcOT9LG.jpg",
+    },
+    {
+      id: 3,
+      name: "もののけ姫",
+      image:
+        "https://media.themoviedb.org/t/p/w300_and_h450_bestv2/mVdz3vlmioKWZaHTGfu99zIuayZ.jpg",
+    },
+    {
+      id: 4,
+      name: "バック・トゥ・ザ・フューチャー",
+      image:
+        "https://media.themoviedb.org/t/p/w300_and_h450_bestv2/oHaxzQXWSvIsctZfAYSW0tn54gQ.jpg",
+    },
+  ];
 
-      {/* 2. カードデザインとホバー効果のテスト */}
-      <div className="group relative p-10 bg-slate-800 rounded-3xl border border-slate-700 shadow-2xl transition-all hover:scale-105 hover:border-cyan-500/50">
-        <div className="absolute -inset-0.5 bg-gradient-to-r from-cyan-500 to-blue-600 rounded-3xl blur opacity-20 group-hover:opacity-50 transition"></div>
-        
-        <div className="relative flex flex-col items-center gap-4">
-          <p className="text-slate-300 text-lg font-medium">
-            TypeScript + Vite 6 + Tailwind CSS v4
-          </p>
-          
-          {/* 3. ボタンとリング（枠線）のテスト */}
-          <button className="px-6 py-2 bg-cyan-600 hover:bg-cyan-500 text-white font-bold rounded-full shadow-lg shadow-cyan-900/20 transition-all active:scale-95 ring-2 ring-cyan-400/30">
-            Check Connection
-          </button>
-        </div>
-      </div>
+  // 追加
+  const [keyword, setKeyword] = useState("");
 
-      {/* 4. v4新機能（CSS変数の直接利用）の簡易テスト */}
-      <p className="mt-10 text-slate-500 text-sm">
-        If you see a <span className="text-cyan-400 font-mono">cyan gradient</span>, it's working perfectly.
-      </p>
+ return (
+    <div>
+      <div>{keyword}</div>
+      <input type="text" onChange={(e) => setKeyword(e.target.value)} />
+      {/* 修正 */}
+      {defaultMovieList
+        .filter((movie) => movie.name.includes(keyword))
+        .map((movie) => (
+          <div key={movie.id}>
+            <h2>{movie.name}</h2>
+            <img src={movie.image} alt={movie.name} />
+            <p>{movie.overview}</p>
+          </div>
+        ))}
     </div>
-  )
+  );
 }
 
-export default App
+export default App;
