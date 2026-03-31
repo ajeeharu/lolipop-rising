@@ -2,15 +2,16 @@ import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
 import tailwindcss from '@tailwindcss/vite'
 
+// https://vite.dev/config/
 export default defineConfig({
   plugins: [
     react(),
-    tailwindcss(), // Tailwind v4 プラグインを追加
+    tailwindcss(),
   ],
   server: {
-    host: true, // Docker経由でアクセスするために必要
+    host: true, // Dockerからアクセスするために必要
     watch: {
-      usePolling: true, // Windowsでのホットリロード対策
+      usePolling: true, // WSL2環境でのホットリロード安定化
     },
   },
 })

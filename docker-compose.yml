@@ -2,6 +2,7 @@ services:
   # フロントエンド (React + Tailwind)
   frontend:
     build: ./frontend
+    command: npm run dev -- --host
     volumes:
       - ./frontend:/app
       - /app/node_modules
