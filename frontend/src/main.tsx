@@ -6,7 +6,7 @@ import { AppRoutes } from "./routes"; // 作成したルートを読み込む
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
-    <BrowserRouter>
+    <BrowserRouter basename="/study_space/react-test/frontend/dist">
       <AppRoutes />
     </BrowserRouter>
   </React.StrictMode>
