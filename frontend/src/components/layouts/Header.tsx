@@ -17,7 +17,7 @@ export const Header = () => {
           {/* ロゴエリア */}
           <div className="flex-shrink-0 flex items-center">
             <Link to="/" className="text-2xl font-bold text-blue-600 hover:text-blue-500 transition-colors">
-              MyBrand
+              Rising 卓球教室
             </Link>
           </div>
 

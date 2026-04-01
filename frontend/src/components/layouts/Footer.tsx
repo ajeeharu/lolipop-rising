@@ -11,7 +11,7 @@ export const Footer = () => {
           {/* ブランド・紹介エリア */}
           <div className="col-span-1 md:col-span-2">
             <Link to="/" className="text-xl font-bold text-blue-600">
-              MyBrand
+              Rising 卓球教室
             </Link>
             <p className="mt-4 text-gray-500 text-sm max-w-xs">
               React Router v7 と Tailwind CSS を使用したモダンなWebアプリケーションのテンプレートです。

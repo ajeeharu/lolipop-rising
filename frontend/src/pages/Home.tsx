@@ -1,9 +1,11 @@
+import { Login } from "./LogIn";
+
 export const Home = () => {
     return (
         <div className="min-h-screen flex flex-col items-center justify-center bg-slate-900 p-4">
             {/* 1. グラデーションとテキスト装飾のテスト */}
             <h1 className="text-5xl md:text-7xl font-black text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 via-blue-500 to-purple-600 mb-8 animate-pulse">
-                Tailwind v4 Active!
+                制作中
             </h1>
 
             {/* 2. カードデザインとホバー効果のテスト */}
@@ -12,7 +14,7 @@ export const Home = () => {
 
                 <div className="relative flex flex-col items-center gap-4">
                     <p className="text-slate-300 text-lg font-medium">
-                        TypeScript + Vite 6 + Tailwind CSS v4
+                        福井県　Rising　卓球教室へようこそ！
                     </p>
 
                     {/* 3. ボタンとリング（枠線）のテスト */}
