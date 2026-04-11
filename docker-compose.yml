@@ -1,40 +1,44 @@
 services:
-  # フロントエンド (React + Tailwind)
+  # Backend: LiteSpeed + PHP 8.4
+  backend:
+    image: litespeedtech/openlitespeed:1.8.2-lsphp83
+    container_name: lolipop-backend
+    ports:
+      - "8080:80"
+      - "7080:7080"
+    volumes:
+      - ./backend/html:/var/www/vhosts/localhost/html
+    environment:
+      - TZ=Asia/Tokyo
+      - ADMIN_PASSWORD=password123
+    depends_on:
+      - db
+    restart: always
+
+  # Frontend: React (Vite) + TypeScript + Tailwind
   frontend:
     build: ./frontend
-    command: npm run dev -- --host
-    volumes:
-      - ./frontend:/app
-      - /app/node_modules
+    image: node:20-slim
+    container_name: lolipop-frontend
+    working_dir: /src
     ports:
       - "5173:5173"
-    environment:
-      - CHOKIDAR_USEPOLLING=true
-    depends_on:
-      - db
-  # バックエンド (PHP)
-  backend:
-    build: ./backend
     volumes:
-      - ./backend:/var/www/html
-    ports:
-      - "8080:80" # ブラウザからは 8080 でアクセス
-    depends_on:
-      - db
-  # データベース (MySQL)
+      - ./frontend:/src
+    tty: true
+    stdin_open: true
+    command: sh -c "npm install && npm run dev -- --host"
+
+  # Database: MySQL
   db:
     image: mysql:8.0
-    container_name: mysql_db
-    restart: always
+    container_name: lolipop-db
+    command: --default-authentication-plugin=mysql_native_password
     environment:
-      MYSQL_DATABASE: my_database
       MYSQL_ROOT_PASSWORD: root_password
-      MYSQL_USER: user
+      MYSQL_DATABASE: lolipop_db
+      MYSQL_USER: user_name
       MYSQL_PASSWORD: user_password
-    ports:
-      - "3306:3306"
     volumes:
-      - mysql_data:/var/lib/mysql
-      - ./mysql/init.sql:/docker-entrypoint-initdb.d/init.sql # これを追加
-volumes:
-  mysql_data:
+      - ./mysql_data:/var/lib/mysql
+    restart: always

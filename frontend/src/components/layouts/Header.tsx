@@ -1,4 +1,6 @@
-import { Link, NavLink } from "react-router";
+import { useNavigate, Link, NavLink } from "react-router-dom";
+import { signOut, getCurrentUser } from "aws-amplify/auth";
+import { useEffect, useState } from "react";
 
 export const Header = () => {
   // ナビゲーションメニューの定義
@@ -8,6 +10,26 @@ export const Header = () => {
     { name: "会社概要", path: "/about" },
     { name: "お問い合わせ", path: "/contact" },
   ];
+
+  const navigate = useNavigate();
+  const [user, setUser] = useState<any>(null);
+
+  // ログイン状態を確認
+  useEffect(() => {
+    getCurrentUser()
+      .then((res) => setUser(res))
+      .catch(() => setUser(null));
+  }, []);
+
+  const handleLogout = async () => {
+    try {
+      await signOut();
+      setUser(null);
+      navigate("/"); // ログアウト後にホームへ
+    } catch (error) {
+      console.error("ログアウト失敗", error);
+    }
+  };
 
   return (
     <header className="bg-white border-b border-gray-200 sticky top-0 z-50 shadow-sm">
@@ -42,9 +64,19 @@ export const Header = () => {
 
           {/* アクションボタン（例：ログインなど） */}
           <div className="hidden md:flex items-center">
-            <button className="bg-blue-600 text-white px-4 py-2 rounded-md text-sm font-medium hover:bg-blue-700 transition-colors">
+            {user ?(
+            <button 
+              onClick={handleLogout}
+              className="bg-blue-600 text-white px-4 py-2 rounded-md text-sm font-medium hover:bg-blue-700 transition-colors">
+              ログアウト
+            </button>
+            ):(
+            <button
+              onClick={() => navigate("/login")} 
+              className="bg-blue-600 text-white px-4 py-2 rounded-md text-sm font-medium hover:bg-blue-700 transition-colors">
               ログイン
             </button>
+            )}
           </div>
 
           {/* モバイル用メニューボタン（三本線アイコンなど：ここでは簡略化） */}

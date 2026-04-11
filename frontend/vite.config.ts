@@ -5,7 +5,7 @@ import tailwindcss from '@tailwindcss/vite'
 // https://vite.dev/config/
 export default defineConfig({
 // これを追加！「相対パス」で書き出す設定です
-  base: '/study_space/react-test/frontend/dist/',
+  base: '',
   plugins: [
     react(),
     tailwindcss(),

@@ -1,4 +1,4 @@
-import { Link } from "react-router";
+import { Link } from "react-router-dom";
 
 export const Footer = () => {
   const currentYear = new Date().getFullYear();
@@ -63,8 +63,8 @@ export const Footer = () => {
             &copy; {currentYear} MyBrand Inc. All rights reserved.
           </p>
           <div className="flex space-x-6 mt-4 md:mt-0">
-            <span className="text-gray-400 hover:text-gray-500 cursor-pointer text-sm">プライバシーポリシー</span>
-            <span className="text-gray-400 hover:text-gray-500 cursor-pointer text-sm">利用規約</span>
+            <span className="text-gray-400 hover:text-gray-500 cursor-pointer text-sm"><Link to="/privacy">プライバシーポリシー</Link></span>
+            <span className="text-gray-400 hover:text-gray-500 cursor-pointer text-sm"><Link to="/terms">利用規約</Link></span>
           </div>
         </div>
       </div>
