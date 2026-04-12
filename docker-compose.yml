@@ -18,6 +18,7 @@ services:
 
   # Frontend: React (Vite) + TypeScript + Tailwind
   frontend:
+    user: "node" # rootではなくnodeユーザーで実行させる
     build: ./frontend
     image: node:20-slim
     container_name: lolipop-frontend
