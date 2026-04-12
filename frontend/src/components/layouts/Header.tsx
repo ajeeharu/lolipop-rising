@@ -32,7 +32,7 @@ export const Header = () => {
   };
 
   return (
-    <header className="bg-white border-b border-gray-200 sticky top-0 z-50 shadow-sm">
+    <header className="bg-secondary border-b border-gray-200 sticky top-0 z-50 shadow-sm">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
           
@@ -52,7 +52,7 @@ export const Header = () => {
                 className={({ isActive }) =>
                   `text-sm font-medium transition-colors duration-200 pb-1 border-b-2 ${
                     isActive 
-                      ? "text-blue-600 border-blue-600" 
+                      ? "text-blue-600 border-blue-500" 
                       : "text-gray-500 border-transparent hover:text-blue-500 hover:border-gray-300"
                   }`
                 }

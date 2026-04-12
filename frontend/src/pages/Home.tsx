@@ -2,7 +2,7 @@
 
 export const Home = () => {
     return (
-        <div className="min-h-screen flex flex-col items-center justify-center bg-slate-900 p-4">
+        <div className="min-h-screen flex flex-col items-center justify-center bg-primary p-4">
             {/* 1. グラデーションとテキスト装飾のテスト */}
             <h1 className="text-5xl md:text-7xl font-black text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 via-blue-500 to-purple-600 mb-8 animate-pulse">
                 制作中

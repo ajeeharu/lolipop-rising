@@ -1,6 +1,10 @@
 services:
   # Backend: LiteSpeed + PHP 8.4
   backend:
+    build:
+      context: ./backend    # backendフォルダを指定
+      dockerfile: Dockerfile # さっき作ったファイルを指定
+
     image: litespeedtech/openlitespeed:1.8.2-lsphp83
     container_name: lolipop-backend
     ports:
@@ -9,6 +13,7 @@ services:
     volumes:
 # 「backend」フォルダそのものを「html」としてマウントする
       - ./backend:/var/www/vhosts/localhost/html
+      - ./vhconf.conf:/usr/local/lsws/conf/vhosts/Example/vhconf.conf 
     environment:
       - TZ=Asia/Tokyo
       - ADMIN_PASSWORD=password123
