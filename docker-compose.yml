@@ -13,7 +13,6 @@ services:
     volumes:
 # 「backend」フォルダそのものを「html」としてマウントする
       - ./backend:/var/www/vhosts/localhost/html
-      - ./vhconf.conf:/usr/local/lsws/conf/vhosts/Example/vhconf.conf 
     environment:
       - TZ=Asia/Tokyo
       - ADMIN_PASSWORD=password123
