@@ -7,7 +7,8 @@ services:
       - "8080:80"
       - "7080:7080"
     volumes:
-      - ./backend/html:/var/www/vhosts/localhost/html
+# 「backend」フォルダそのものを「html」としてマウントする
+      - ./backend:/var/www/vhosts/localhost/html
     environment:
       - TZ=Asia/Tokyo
       - ADMIN_PASSWORD=password123
