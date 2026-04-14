@@ -6,7 +6,7 @@ services:
       dockerfile: Dockerfile # さっき作ったファイルを指定
 
     image: litespeedtech/openlitespeed:1.8.2-lsphp83
-    container_name: lolipop-backend
+    container_name: rising-backend
     ports:
       - "8080:80"
       - "7080:7080"
@@ -25,7 +25,7 @@ services:
     user: "node" # rootではなくnodeユーザーで実行させる
     build: ./frontend
     image: node:20-slim
-    container_name: lolipop-frontend
+    container_name: rising-frontend
     working_dir: /src
     ports:
       - "5173:5173"
@@ -33,16 +33,16 @@ services:
       - ./frontend:/src
     tty: true
     stdin_open: true
-    command: sh -c "npm install && npm run dev -- --host"
+    command: sh -c "cd react-app && npm install && npm run dev -- --host"
 
   # Database: MySQL
   db:
     image: mysql:8.0
-    container_name: lolipop-db
+    container_name: rising-db
     command: --default-authentication-plugin=mysql_native_password
     environment:
       MYSQL_ROOT_PASSWORD: root_password
-      MYSQL_DATABASE: lolipop_db
+      MYSQL_DATABASE: rising_db
       MYSQL_USER: user_name
       MYSQL_PASSWORD: user_password
     volumes:

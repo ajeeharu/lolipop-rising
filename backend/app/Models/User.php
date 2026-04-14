@@ -9,11 +9,9 @@ use Illuminate\Database\Eloquent\Attributes\Hidden;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
-use ApiPlatform\Laravel\Metadata\ApiResource;
 
 #[Fillable(['name', 'email', 'password'])]
 #[Hidden(['password', 'remember_token'])]
-#[ApiResource] // これだけで API になるでござる！
 class User extends Authenticatable
 {
     /** @use HasFactory<UserFactory> */
