@@ -1,82 +1,147 @@
+import { useState } from 'react';
 import { NavLink } from 'react-router-dom';
-import logo from '../../assets/images/rising-logo.jpg';
+import logo from '../../assets/images/RisingLogo.png';
 
 export const Header = () => {
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [isOpen, setIsOpen] = useState(false); // メニューの開閉状態
+
+  // メニューを閉じる関数
+  const toggleMenu = () => setIsOpen(!isOpen);
+
+  // メニュー項目の共通スタイル
+  const menuLinkStyle = "flex items-center gap-2 px-4 py-2 rounded-full transition-all duration-200 hover:bg-gray-100 text-info font-medium text-sm whitespace-nowrap";
+  const activeLinkStyle = "flex items-center gap-2 px-4 py-2 rounded-full bg-gray-200 text-info font-bold text-sm whitespace-nowrap shadow-sm";
+
+  // モバイルメニュー用リンクスタイル
+  const mobileLinkStyle = "flex items-center gap-4 w-full p-4 text-info font-medium border-b border-gray-100";
+  const mobileActiveStyle = "flex items-center gap-4 w-full p-4 text-accent font-bold bg-gray-50 border-b border-gray-100";
+
   return (
-    <header className="flex items-center justify-between py-0  px-4  h-14 bg-[#0f0f0f] fixed top-0 left-0 right-0 z-[1000]">
-      <div className="flex items-center gap-4">
-        <button className="w-10 h-10 text-[#f1f1f1] cursor-pointer rounded-full hidden justify-center hover:bg-white/[0.1]">
-          <svg width="24" height="24" viewBox="0 0 24 24">
-            <path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V4H3z" />
-          </svg>
-        </button>
-        <div className="flex items-center gap-1">
-          <img
-            src={logo}
-            alt="Rising Logo"
-            className="w-32 h-8 object-contain"
-          />
+    <>
+      {/* ヘッダー本体 */}
+      <header className="fixed top-0 left-0 right-0 z-[1000] h-[80px] lg:h-[100px] bg-base shadow-lg flex items-center justify-between px-4 lg:px-8">
+
+        {/* --- 左側：ロゴ＆アプリ名エリア --- */}
+        <div className="flex-shrink-0 flex items-center">
+          <NavLink to="/" className="flex items-center gap-2 group">
+            <img
+              src={logo}
+              alt="Rising Logo"
+              className="w-[60px] h-[60px] lg:w-[80px] lg:h-[80px] object-contain drop-shadow-md transition-transform group-hover:scale-105"
+            />
+            <div className="flex flex-row items-center">
+              <span className="text-info text-lg lg:text-xl font-black leading-tight tracking-tighter">
+                Rising
+              </span>
+              <span className="ml-1 lg:ml-2 text-accent text-lg lg:text-xl font-bold leading-none">
+                卓球教室
+              </span>
+            </div>
+          </NavLink>
         </div>
-      </div>
-      <div className="flex items-center gap-4 max-w-[45.75rem] justify-center">
-        <div className="flex-1 flex max-w-[33.75rem] relative items-center rounded-3xl bg-white/[0.08]">
-          <input type="text" placeholder="検索" className="flex-1 h-10 bg-transparent rounded-3xl py-0  px-4  text-[#f1f1f1] text-base placeholder-[#aaa] placeholder-opacity-80 focus:border-[#3ea6ff] bg-black/[0.7]"/>
-          <button className="w-16 h-10 bg-white/[0.08] rounded-none text-[#f1f1f1] cursor-pointer flex items-center justify-center hover:bg-white/[0.15]">
-            <svg width="24" height="24" viewBox="0 0 24 24">
-              <path d="M20.87,20.17l-5.59-5.59C16.35,13.35,17,11.75,17,10c0-3.87-3.13-7-7-7s-7,3.13-7,7s3.13,7,7,7c1.75,0,3.35-0.65,4.58-1.71 l5.59,5.59L20.87,20.17z M10,16c-3.31,0-6-2.69-6-6s2.69-6,6-6s6,2.69,6,6S13.31,16,10,16z" />
+
+        {/* --- 中央：PC用グローバルメニュー（画面幅 lg 以上で表示） --- */}
+        <div className="hidden lg:flex flex-1 justify-center">
+          <nav className="bg-white rounded-full px-2 py-1.5 flex items-center gap-1 shadow-md border border-white">
+            <NavLink to="/" className={({ isActive }) => isActive ? activeLinkStyle : menuLinkStyle}>
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z" /></svg>
+              <span>ホーム</span>
+            </NavLink>
+
+            <NavLink to="/create-video" className={({ isActive }) => isActive ? activeLinkStyle : menuLinkStyle}>
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M17 10.5V7a1 1 0 00-1-1H4a1 1 0 00-1 1v10a1 1 0 001 1h12a1 1 0 001-1v-3.5l4 4v-11l-4 4z" /></svg>
+              <span>動画をアップロード</span>
+            </NavLink>
+
+            <NavLink to="/my-videos" className={({ isActive }) => isActive ? activeLinkStyle : menuLinkStyle}>
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M4 6H2v14c0 1.1.9 2 2 2h14v-2H4V6zm16-4H8c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm-8 12.5v-9l6 4.5-6 4.5z" /></svg>
+              <span>自分の動画一覧</span>
+            </NavLink>
+
+            <NavLink to="/edit-profile" className={({ isActive }) => isActive ? activeLinkStyle : menuLinkStyle}>
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z" /></svg>
+              <span>プロフィール編集</span>
+            </NavLink>
+
+            {isLoggedIn ? (
+              <button onClick={() => setIsLoggedIn(false)} className="ml-4 px-5 py-2 bg-gray-800 text-white rounded-full text-sm font-bold hover:bg-black transition-colors shadow-sm">
+                ログオフ
+              </button>
+            ) : (
+              <NavLink to="/login" className="ml-4 px-6 py-2 bg-accent text-white rounded-full text-sm font-bold border-2 border-accent hover:bg-white hover:text-accent transition-all duration-300 shadow-sm">
+                ログイン
+              </NavLink>
+            )}
+          </nav>
+        </div>
+
+        {/* --- 右側：スマホ用三アイコン（ハンバーガーメニュー） --- */}
+        <div className="lg:hidden">
+          <button
+            onClick={toggleMenu}
+            className="p-2 text-info hover:bg-gray-100 rounded-lg transition-colors"
+            aria-label="メニューを開く"
+          >
+            <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              {isOpen ? (
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+              ) : (
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16m-7 6h7" />
+              )}
             </svg>
           </button>
         </div>
-      </div>
-      <div className="flex items-center gap-2">
-        <NavLink to="/create-video" className="flex items-center gap-2 text-[#f1f1f1] cursor-pointer py-2  px-3  rounded-2xl hover:bg-white/[0.1]">
-          <svg width="24" height="24" viewBox="0 0 24 24">
-            <path fill="#f1f1f1" d="M17 10.5V7a1 1 0 00-1-1H4a1 1 0 00-1 1v10a1 1 0 001 1h12a1 1 0 001-1v-3.5l4 4v-11l-4 4z" />
-          </svg>
-          <span>作成</span>
-        </NavLink>
-        <div className="profile-relative">
-          <button className="w-10 h-10 text-[#f1f1f1] cursor-pointer rounded-full flex items-center justify-center-button hover:bg-white/[0.1]">
-            <img
-              className='w-8 h-8 rounded-full'
-              src="https://cdn.pixabay.com/photo/2016/08/08/09/17/avatar-1577909_960_720.png"
-              alt="Profile"
-            />
-          </button>
-          <div className="absolute top-full right-0 w-72 bg-[#f9f9f9] rounded-xl overflow-hidden z-[1001] mt-2">
-            <div className="flex items-center py-3  px-4">
-              <img
-                src="https://cdn.pixabay.com/photo/2016/08/08/09/17/avatar-1577909_960_720.png"
-                alt="Profile"
-                className="w-10 h-10 rounded-full"
-              />
-              <div className="flex-1">
-                <div className="text-base font-medium text-[#0f0f0f] mb-1">テストユーザー</div>
-              </div>
-              <button className="cursor-pointer ml-auto p-0">
-                <svg width="24" height="24" viewBox="0 0 24 24">
-                  <path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"></path>
-                </svg>
-              </button>
-            </div>
-            <div className="profile-tooltip-divider h-0 bg-[#e5e5e5]"></div>
-            <div className="py-2 px-0">
-              <div className="flex items-center gap-3 py-2  px-4  cursor-pointer text-[#0f0f0f] text-sm relative hover:bg-[#f2f2f2]">
-                <svg
-                  width="24"
-                  height="24"
-                  viewBox="0 0 24 24"
-                  fill="currentColor"
-                  className='text-[#606060]'
+
+        {/* 右端のスペーサー（PC版のバランス用） */}
+        <div className="hidden lg:block w-[150px]"></div>
+      </header>
+
+      {/* --- スマホ用オーバーレイメニュー --- */}
+      <div className={`fixed inset-0 z-[999] lg:hidden transition-opacity duration-300 ${isOpen ? "opacity-100 visible" : "opacity-0 invisible"}`}>
+        {/* 背景の暗幕 */}
+        <div className="absolute inset-0 bg-black/50" onClick={toggleMenu}></div>
+        
+        {/* メニューコンテンツ */}
+        <nav className={`absolute right-0 top-0 h-full w-[280px] bg-white shadow-xl transform transition-transform duration-300 ease-in-out ${isOpen ? "translate-x-0" : "translate-x-full"} pt-24 px-4`}>
+          <div className="flex flex-col">
+            <NavLink to="/" onClick={toggleMenu} className={({ isActive }) => isActive ? mobileActiveStyle : mobileLinkStyle}>
+              ホーム
+            </NavLink>
+            <NavLink to="/create-video" onClick={toggleMenu} className={({ isActive }) => isActive ? mobileActiveStyle : mobileLinkStyle}>
+              動画をアップロード
+            </NavLink>
+            <NavLink to="/my-videos" onClick={toggleMenu} className={({ isActive }) => isActive ? mobileActiveStyle : mobileLinkStyle}>
+              自分の動画一覧
+            </NavLink>
+            <NavLink to="/edit-profile" onClick={toggleMenu} className={({ isActive }) => isActive ? mobileActiveStyle : mobileLinkStyle}>
+              プロフィール編集
+            </NavLink>
+
+            <div className="mt-8 px-4">
+              {isLoggedIn ? (
+                <button
+                  onClick={() => { setIsLoggedIn(false); toggleMenu(); }}
+                  className="w-full py-3 bg-gray-800 text-white rounded-xl font-bold"
                 >
-                  <path d="M17 7l-1.41 1.41L18.17 11H8v2h10.17l-2.58 2.59L17 17l5-5z" />
-                </svg>
-                <span>ログアウト</span>
-              </div>
+                  ログオフ
+                </button>
+              ) : (
+                <NavLink
+                  to="/login"
+                  onClick={toggleMenu}
+                  className="block w-full py-3 bg-accent text-white text-center rounded-xl font-bold"
+                >
+                  ログイン
+                </NavLink>
+              )}
             </div>
           </div>
-        </div>
+        </nav>
       </div>
-    </header>
+
+      {/* スペーサー */}
+      <div className="h-[80px] lg:h-[100px]" />
+    </>
   );
 }
