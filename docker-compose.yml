@@ -18,10 +18,12 @@ services:
       - ./lsws-conf:/usr/local/lsws/conf
     environment:
       - TZ=Asia/Tokyo
-      - ADMIN_PASSWORD=password123
+      - OLS_USER=admin
+      - OLS_PASSWORD=password123
     depends_on:
       - db
     restart: always
+    # user: "1000:1000" # 自分のホストPCのUID:GIDを指定
 
   # Frontend: React (Vite) + TypeScript + Tailwind
   frontend:
